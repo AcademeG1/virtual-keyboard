@@ -1,5 +1,5 @@
 import Key from '../key/Key.js';
-
+import {keysRus} from '../../keysRus.js';
 const CSS_STYLES = {
   WRAPPER: 'wrapper',
   KEYBOARD_WRAPPER: 'keyboard__wrapper',
@@ -11,39 +11,49 @@ const CSS_STYLES = {
 };
 
 class Keyboard {
-  constructor(keys, language) {
+  constructor(keys) {
     if (!Array.isArray(keys)) {
       // eslint-disable-next-line new-cap
       throw TypeError('Keys not is array');
     } else {
       this.keys = keys;
     }
+    this.keysRus = keysRus;
     this.key = new Key();
     this.flagLines = true;
     this.lines;
-    this.language = language;
+    this.keyboardWrapper;
   }
 
-  createKeyboard() {
+  createKeyboard(language, addedRender = false, upperCase = false) {
     // eslint-disable-next-line max-len
-    const keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
+    this.keyboardWrapper = undefined;
+    // eslint-disable-next-line max-len
+    this.keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
     const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
-    keyboardWrapper.append(keyboard);
-    if (this.language == 'en') {
+    this.keyboardWrapper.append(keyboard);
+    if (language == 'en') {
       this.keys.map((item, index) => {
-        const divKey = this.key.render(item);
-        keyboard.append(divKey);
+        const keyDiv = this.key.render(item, upperCase);
+        keyboard.append(keyDiv);
       });
-    } else if (this.language == 'ru') {
-      this.keys.map((item, index) => {
-        const divKey = this.key.render(item);
-        keyboard.append(divKey);
-        // if (index == 13 || index == 27 || index == 41 || index == 53) {
-        //   keyboard.innerHTML += '<div class="clear__both"></div>';
-        // }
-      });
+      console.log('en', keyboard);
+    } else {
+    // if (language == 'ru') {
+    //   this.keysRus.map((item, index) => {
+    //     keyboard.append(this.key.render(item));
+    //   });
+      // console.log('ru', keyboard);
     }
-    return keyboardWrapper;
+    if (addedRender) {
+      return keyboard;
+    } else {
+      return this.keyboardWrapper;
+    }
+  }
+
+  getKeyboard() {
+    return this.keyboardWrapper;
   }
 
   createTextField() {
