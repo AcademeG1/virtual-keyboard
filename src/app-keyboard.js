@@ -14,6 +14,16 @@ const CSS_STYLES = {
   FOOTER_TEXT: 'footer_text',
 };
 
+const pressed = new Set();
+let language;
+
+if (localStorage.getItem('lang') == null) {
+  localStorage.setItem('lang', JSON.stringify('en'));
+  language = 'en';
+} else {
+  language = JSON.parse(localStorage.getItem('lang'));
+}
+
 const header = new Header('RSS Keyboard display', CSS_STYLES.HEADER_TITLE);
 const keyboard = new Keyboard(language == 'en' ? keys : keysRus, language);
 const footer = new Footer(
@@ -27,3 +37,21 @@ document.body.prepend(
     keyboard.createKeyboard(),
     footer.renderFooter(),
 );
+
+document.onkeydown = (event) => {
+  pressed.add(event.code);
+  if (pressed.has('AltLeft') && pressed.has('Space')) {
+    if (language == 'en') {
+      language = 'ru';
+      localStorage.setItem('lang', JSON.stringify(language));
+    } else {
+      language = 'en';
+      localStorage.setItem('lang', JSON.stringify(language));
+    }
+    pressed.clear();
+  }
+};
+
+document.onkeyup = (event) => {
+  pressed.delete(event.code);
+};
