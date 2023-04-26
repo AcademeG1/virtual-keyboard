@@ -33,6 +33,12 @@ body {
     padding: 10px 10px 0 0;
     border-radius: 10px;
     border: 1px solid black;
+    display: block;
+    position: relative;
+}
+
+.clear__both {
+    clear: both;
 }
 
 .lines__keyboard {
@@ -40,17 +46,96 @@ body {
 }
 
 .key {
-    width: 70px;
-    height: 30px;
+    width: 42px;
+    height: 48px;
     border: 1px solid black;
     margin: 0 0 10px 10px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    float: left;
+}
+
+.key:hover {
+    background-color: beige;
 }
 
 .CapsLock {
-    width: 120px;
+    width: 88px;
 }
+
+.Backspace {
+    width: 135px;
+}
+
+.Tab {
+    width: 100px;
+}
+
+.Enter {
+    width: 90px;
+    position: relative;
+}
+
+#rotate {
+    transform: rotate(-90deg);
+}
+
+#rotateNine {
+    transform: rotate(90deg);
+}
+
+#hundredEighty {
+    transform: rotate(180deg);
+}
+
+.ControlLeft {
+    width: 60px;
+}
+
+.AltLeft {
+    width: 60px; 
+}
+
+.IntlBackslash {
+    width: 78px;
+}
+
+.MetaLeft {
+    width: 75px;
+}
+
+.MetaRight {
+    width: 75px;
+}
+
+.AltRight {
+    width: 60px;
+}
+
+.Space {
+    width: 232px;
+}
+
+.ShiftLeft, .ShiftRight {
+    width: 143px;
+}
+
+.repeat__enter {
+    width: 78px;
+    height: 59px;
+    border: 1px solid black;
+    margin: 0 0 10px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 119px;
+}
+
+
 /* 55px одна кнопка */
+/* когда down добавлен класс active, когда up, то удаляем класс active */
