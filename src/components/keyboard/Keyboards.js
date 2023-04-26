@@ -11,7 +11,7 @@ const CSS_STYLES = {
 };
 
 class Keyboard {
-  constructor(keys) {
+  constructor(keys, language) {
     if (!Array.isArray(keys)) {
       // eslint-disable-next-line new-cap
       throw TypeError('Keys not is array');
@@ -21,56 +21,28 @@ class Keyboard {
     this.key = new Key();
     this.flagLines = true;
     this.lines;
+    this.language = language;
   }
 
   createKeyboard() {
     // eslint-disable-next-line max-len
     const keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
     const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
-    this.keys.map((item, index) => {
-      if (this.flagLines) {
-        this.lines = undefined;
-        this.lines = this.createElement('div', CSS_STYLES.LINES_BTN);
-        this.flagLines = false;
-      }
-      if (index < 14) {
-        console.log(this.lines.childNodes);
-        this.lines.append(this.key.render(item));
-        if (index == 13) {
-          keyboard.append(this.lines);
-          this.flagLines = true;
-        }
-      }
-      if (index > 14 && index < 28) {
-        this.lines.append(this.key.render(item));
-        if (index == 27) {
-          keyboard.append(this.lines);
-          this.flagLines = true;
-        }
-      }
-      if (index > 27 && index < 41) {
-        this.lines.append(this.key.render(item));
-        if (index == 40) {
-          keyboard.append(this.lines);
-          this.flagLines = true;
-        }
-      }
-      if (index > 40 && index < 54) {
-        this.lines.append(this.key.render(item));
-        if (index == 53) {
-          keyboard.append(this.lines);
-          this.flagLines = true;
-        }
-      }
-      if (index > 53 && index < 64) {
-        this.lines.append(this.key.render(item));
-        if (index == 63) {
-          keyboard.append(this.lines);
-          this.flagLines = true;
-        }
-      }
-    });
     keyboardWrapper.append(keyboard);
+    if (this.language == 'en') {
+      this.keys.map((item, index) => {
+        const divKey = this.key.render(item);
+        keyboard.append(divKey);
+      });
+    } else if (this.language == 'ru') {
+      this.keys.map((item, index) => {
+        const divKey = this.key.render(item);
+        keyboard.append(divKey);
+        // if (index == 13 || index == 27 || index == 41 || index == 53) {
+        //   keyboard.innerHTML += '<div class="clear__both"></div>';
+        // }
+      });
+    }
     return keyboardWrapper;
   }
 

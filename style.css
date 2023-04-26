@@ -4,21 +4,55 @@ body {
     font-family: 'Ubuntu', sans-serif;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
+    /* height: 100vh; */
+    /* justify-content: space-between; */
+    position: relative;
+    background: linear-gradient(90deg, #446045, #88ca92, #577b8b);
+    min-width: 1700px;
+}
+
+.wrapper {
+    max-width: 1920px;
+    margin: 0 auto;
 }
 
 .header__title, .text {
     text-align: center;
+    position: relative;
 }
 
 .text_area {
     display: block;
-    width: 800px;
-    height: 200px;
+    width: 485px;
+    height: 230px;
     margin: 0 auto;
     padding: 10px;
-    border-radius: 15px;
+    margin-top: 25px;
+    position: relative;
+    background-color:#cbcbcb;
+}
+
+.header__title::after {
+    content: '';
+    display: block;
+    background: #000000;
+    position: absolute;
+    width: 525px;
+    height: 263px;
+    /* left: 633px; */
+    left: 19.2%;
+    top: 56px;
+    border-radius: 10px;
+}
+.header__title::before {
+    content: url(./src/icons/Stand.svg);
+    max-width: 300px;
+    max-height: 200px;
+    display: block;
+    position: absolute;
+    /* left: 797px; */
+    left: 39.5%;
+    top: 319px;
 }
 
 .keyboard__wrapper {
@@ -28,11 +62,23 @@ body {
 }
 
 .keyboard {
+    background: linear-gradient(180deg, #C4C4C4 0%, #727272 100%);
     width: 100%;
     height: 100%;
     padding: 10px 10px 0 0;
     border-radius: 10px;
     border: 1px solid black;
+    display: block;
+    position: relative;
+    margin-top: 125px;
+}
+
+.footer_text {
+    margin-top: 35px;
+}
+
+.clear__both {
+    clear: both;
 }
 
 .lines__keyboard {
@@ -40,17 +86,103 @@ body {
 }
 
 .key {
-    width: 70px;
-    height: 30px;
+    width: 42px;
+    height: 48px;
     border: 1px solid black;
     margin: 0 0 10px 10px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    float: left;
+    border-radius: 5px;
+    color: white;
+    box-shadow: inset -7px -9px 30px rgba(63, 63, 63, 0.88);
+    background: #131313;
+}
+
+.key:hover {
+    background: #AEB3BE;
+    border-color: #AEB3BE;
+    box-shadow: none;
+    color: black;
 }
 
 .CapsLock {
-    width: 120px;
+    width: 88px;
 }
+
+.Backspace {
+    width: 135px;
+}
+
+.Tab {
+    width: 100px;
+}
+
+.Enter {
+    width: 90px;
+    position: relative;
+}
+
+#rotate {
+    transform: rotate(-90deg);
+}
+
+#rotateNine {
+    transform: rotate(90deg);
+}
+
+#hundredEighty {
+    transform: rotate(180deg);
+}
+
+.ControlLeft {
+    width: 60px;
+}
+
+.AltLeft {
+    width: 60px; 
+}
+
+.IntlBackslash {
+    width: 78px;
+}
+
+.MetaLeft {
+    width: 75px;
+}
+
+.MetaRight {
+    width: 75px;
+}
+
+.AltRight {
+    width: 60px;
+}
+
+.Space {
+    width: 232px;
+}
+
+.ShiftLeft, .ShiftRight {
+    width: 143px;
+}
+
+.repeat__enter {
+    width: 78px;
+    height: 59px;
+    border: 1px solid black;
+    margin: 0 0 10px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 10px;
+    top: 119px;
+}
+
+
 /* 55px одна кнопка */
+/* когда down добавлен класс active, когда up, то удаляем класс active */
