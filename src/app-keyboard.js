@@ -31,12 +31,12 @@ const footer = new Footer(
       'To switch the language combination: left control + space'],
     CSS_STYLES.FOOTER_TEXT);
 
-document.body.prepend(
+document.body.innerHTML = `<div class="wrapper"></div></div>`;
+document.querySelector('.wrapper').prepend(
     header.renderHeader(),
     keyboard.createTextField(),
     keyboard.createKeyboard(),
-    footer.renderFooter(),
-);
+    footer.renderFooter());
 
 document.onkeydown = (event) => {
   pressed.add(event.code);

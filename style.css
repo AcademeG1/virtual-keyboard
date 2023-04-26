@@ -8,6 +8,12 @@ body {
     /* justify-content: space-between; */
     position: relative;
     background: linear-gradient(90deg, #446045, #88ca92, #577b8b);
+    min-width: 1700px;
+}
+
+.wrapper {
+    max-width: 1920px;
+    margin: 0 auto;
 }
 
 .header__title, .text {
@@ -33,8 +39,9 @@ body {
     position: absolute;
     width: 525px;
     height: 263px;
-    left: 633px;
-    top: 78px;
+    /* left: 633px; */
+    left: 19.2%;
+    top: 56px;
     border-radius: 10px;
 }
 .header__title::before {
@@ -43,8 +50,9 @@ body {
     max-height: 200px;
     display: block;
     position: absolute;
-    left: 797px;
-    top: 335px;
+    /* left: 797px; */
+    left: 39.5%;
+    top: 319px;
 }
 
 .keyboard__wrapper {
@@ -66,7 +74,7 @@ body {
 }
 
 .footer_text {
-    margin-top: 135px;
+    margin-top: 35px;
 }
 
 .clear__both {
