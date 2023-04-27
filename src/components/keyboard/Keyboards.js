@@ -1,5 +1,5 @@
 import Key from '../key/Key.js';
-import {keysRus} from '../../keysRus.js';
+
 const CSS_STYLES = {
   WRAPPER: 'wrapper',
   KEYBOARD_WRAPPER: 'keyboard__wrapper',
@@ -18,38 +18,29 @@ class Keyboard {
     } else {
       this.keys = keys;
     }
-    this.keysRus = keysRus;
     this.key = new Key();
-    this.flagLines = true;
-    this.lines;
     this.keyboardWrapper;
   }
 
-  createKeyboard(language, addedRender = false, upperCase = false) {
+  createKeyboard(language) {
     // eslint-disable-next-line max-len
-    this.keyboardWrapper = undefined;
+    // this.keyboardWrapper = undefined;
     // eslint-disable-next-line max-len
     this.keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
     const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
     this.keyboardWrapper.append(keyboard);
-    if (language == 'en') {
-      this.keys.map((item, index) => {
-        const keyDiv = this.key.render(item, upperCase);
-        keyboard.append(keyDiv);
-      });
-      console.log('en', keyboard);
-    } else {
-    // if (language == 'ru') {
-    //   this.keysRus.map((item, index) => {
-    //     keyboard.append(this.key.render(item));
-    //   });
-      // console.log('ru', keyboard);
-    }
-    if (addedRender) {
-      return keyboard;
-    } else {
+    
+    this.keys.map((item, index) => {
+      const keyDiv = this.key.render(item.code, item.default);
+      keyboard.append(keyDiv);
+    });
+    console.log('en', keyboard);
+    
+    // if (addedRender) {
+    //   return keyboard;
+    // } else {
       return this.keyboardWrapper;
-    }
+    // }
   }
 
   getKeyboard() {

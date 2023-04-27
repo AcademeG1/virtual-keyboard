@@ -2,7 +2,6 @@ import {keys} from './keys.js';
 import Header from './components/header/Header.js';
 import Keyboard from './components/keyboard/Keyboards.js';
 import Footer from './components/footer/Footer.js';
-import {keysRus} from './keysRus.js';
 
 const CSS_STYLES = {
   WRAPPER: 'wrapper',
@@ -14,8 +13,8 @@ const CSS_STYLES = {
   FOOTER_TEXT: 'footer_text',
 };
 
-let flagCapsLock = false;
-const pressed = new Set();
+// let flagCapsLock = false;
+// const pressed = new Set();
 let language;
 
 if (localStorage.getItem('lang') == null) {
@@ -26,7 +25,7 @@ if (localStorage.getItem('lang') == null) {
 }
 
 const header = new Header('RSS Keyboard display', CSS_STYLES.HEADER_TITLE);
-const keyboard = new Keyboard(language == 'en' ? keys : keysRus);
+const keyboard = new Keyboard(keys);
 const footer = new Footer(
     ['The keyboard was created in the operating system macOS',
       'To switch the language combination: left option + space'],
@@ -39,99 +38,109 @@ document.querySelector('.wrapper').prepend(
     keyboard.createKeyboard(language),
     footer.renderFooter());
 
-document.onkeydown = (event) => {
-  pressed.add(event.code);
-  keyboard.key.keyInDisplay.map((item) => {
-    if (event.code == item.classList[0]) {
-      item.classList.add('active');
-      return;
-    }
-  });
-  if (event.code == 'ArrowUp') {
-    document.querySelector('textarea').value += '\u25B2';
-    return;
-  }
-  if (event.code == 'ArrowLeft') {
-    document.querySelector('textarea').value += '\u25C0';
-    return;
-  }
-  if (event.code == 'ArrowDown') {
-    document.querySelector('textarea').value += '\u25BC';
-    return;
-  }
-  if (event.code == 'ArrowRight') {
-    document.querySelector('textarea').value += '\u25B6';
-    return;
-  }
-  if (event.code == 'Space') {
-    document.querySelector('textarea').value += ' ';
-    return;
-  }
-  if (event.code == 'CapsLock') {
-    flagCapsLock = !flagCapsLock;
-    document.querySelector('.keyboard__wrapper').innerHTML = '';
-    document.querySelector('.keyboard__wrapper').
-        append(keyboard.createKeyboard(language, true, flagCapsLock));
-  }
+// document.onkeydown = (event) => {
+//   pressed.add(event.code);
+//   keyboard.key.keyInDisplay.map((item) => {
+//     if (event.code == item.classList[0]) {
+//       item.classList.add('active');
+//       return;
+//     }
+//   });
+//   if (event.code == 'ArrowUp') {
+//     document.querySelector('textarea').value += '\u25B2';
+//     return;
+//   }
+//   if (event.code == 'ArrowLeft') {
+//     document.querySelector('textarea').value += '\u25C0';
+//     return;
+//   }
+//   if (event.code == 'ArrowDown') {
+//     document.querySelector('textarea').value += '\u25BC';
+//     return;
+//   }
+//   if (event.code == 'ArrowRight') {
+//     document.querySelector('textarea').value += '\u25B6';
+//     return;
+//   }
+//   if (event.code == 'Space') {
+//     document.querySelector('textarea').value += ' ';
+//     return;
+//   }
+//   if (event.code == 'Backspace') {
+//     document.querySelector('textarea').value =
+//       document.querySelector('textarea')
+//           .value.slice(0, document.querySelector('textarea').value.length-1);
+//   }
 
-  if (event.code[event.code.length-1] ==
-    event.code[event.code.length-1].toUpperCase()) {
-    document.querySelector('textarea').value +=
-    flagCapsLock ? event.code[event.code.length-1].toUpperCase() :
-    event.code[event.code.length-1].toLowerCase();
-  }
-  if (pressed.has('AltLeft') && pressed.has('Space')) {
-    if (language == 'en') {
-      language = 'ru';
-      localStorage.setItem('lang', JSON.stringify(language));
-      document.querySelector('.keyboard__wrapper').innerHTML = '';
-      // eslint-disable-next-line max-len
-      document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard(language, true));
-    } else {
-      language = 'en';
-      localStorage.setItem('lang', JSON.stringify(language));
-      document.querySelector('.keyboard__wrapper').innerHTML = '';
-      // eslint-disable-next-line max-len
-      document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard(language, true));
-    }
-    pressed.clear();
-  }
-};
-// console.log(keyboard.getKeyboard)
-keyboard.getKeyboard().onclick = (event) => {
-  if (event.target.textContent.length > 1) {
-    if (event.target.classList[0] == 'ArrowUp') {
-      document.querySelector('textarea').value += '\u25B2';
-      // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
-    }
-    if (event.target.classList[0] == 'ArrowLeft') {
-      document.querySelector('textarea').value += '\u25C0';
-      // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
-    }
-    if (event.target.classList[0] == 'ArrowDown') {
-      document.querySelector('textarea').value += '\u25BC';
-      // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
-    }
-    if (event.target.classList[0] == 'ArrowRight') {
-      document.querySelector('textarea').value += '\u25B6';
-      // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
-    }
-    if (event.target.classList[0] == 'CapsLock') {
-      flagCapsLock = !flagCapsLock;
-      document.querySelector('.keyboard__wrapper').innerHTML = '';
-      document.querySelector('.keyboard__wrapper').append(
-          keyboard.createKeyboard(language, true, flagCapsLock));
-    }
-  } else {
-    document.querySelector('textarea').value += event.target.textContent;
-  }
-};
+//   if (event.code == 'Enter') {
+//     document.querySelector('textarea').value += '\n';
+//   }
 
-document.onkeyup = (event) => {
-  keyboard.key.keyInDisplay.map((item) => {
-    if (event.code == item.classList[0]) {
-      item.classList.remove('active');
-    }
-  });
-  pressed.delete(event.code);
-};
+//   if (event.code == 'CapsLock') {
+//     flagCapsLock = !flagCapsLock;
+//     document.querySelector('.keyboard__wrapper').innerHTML = '';
+//     document.querySelector('.keyboard__wrapper').
+//         append(keyboard.createKeyboard(language, true, flagCapsLock));
+//   }
+
+//   if (event.code[event.code.length-1] ==
+//     event.code[event.code.length-1].toUpperCase()) {
+//     document.querySelector('textarea').value +=
+//     flagCapsLock ? event.code[event.code.length-1].toUpperCase() :
+//     event.code[event.code.length-1].toLowerCase();
+//   }
+//   if (pressed.has('AltLeft') && pressed.has('Space')) {
+//     if (language == 'en') {
+//       language = 'ru';
+//       localStorage.setItem('lang', JSON.stringify(language));
+//       document.querySelector('.keyboard__wrapper').innerHTML = '';
+//       // eslint-disable-next-line max-len
+//       document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard(language, true));
+//     } else {
+//       language = 'en';
+//       localStorage.setItem('lang', JSON.stringify(language));
+//       document.querySelector('.keyboard__wrapper').innerHTML = '';
+//       // eslint-disable-next-line max-len
+//       document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard(language, true));
+//     }
+//     pressed.clear();
+//   }
+// };
+// // console.log(keyboard.getKeyboard)
+// keyboard.getKeyboard().onclick = (event) => {
+//   if (event.target.textContent.length > 1) {
+//     if (event.target.classList[0] == 'ArrowUp') {
+//       document.querySelector('textarea').value += '\u25B2';
+//       // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
+//     }
+//     if (event.target.classList[0] == 'ArrowLeft') {
+//       document.querySelector('textarea').value += '\u25C0';
+//       // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
+//     }
+//     if (event.target.classList[0] == 'ArrowDown') {
+//       document.querySelector('textarea').value += '\u25BC';
+//       // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
+//     }
+//     if (event.target.classList[0] == 'ArrowRight') {
+//       document.querySelector('textarea').value += '\u25B6';
+//       // 25BC - вниз, 25C0 - лево, 25B6 - право, вверх - u25B2
+//     }
+//     if (event.target.classList[0] == 'CapsLock') {
+//       flagCapsLock = !flagCapsLock;
+//       document.querySelector('.keyboard__wrapper').innerHTML = '';
+//       document.querySelector('.keyboard__wrapper').append(
+//           keyboard.createKeyboard(language, true, flagCapsLock));
+//     }
+//   } else {
+//     document.querySelector('textarea').value += event.target.textContent;
+//   }
+// };
+
+// document.onkeyup = (event) => {
+//   keyboard.key.keyInDisplay.map((item) => {
+//     if (event.code == item.classList[0]) {
+//       item.classList.remove('active');
+//     }
+//   });
+//   pressed.delete(event.code);
+// };
