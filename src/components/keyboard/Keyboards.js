@@ -6,12 +6,11 @@ const CSS_STYLES = {
   KEYBOARD: 'keyboard',
   ACTIVE: 'active',
   BUTTON: 'button',
-  TEXT_AREA: 'text_area',
   LINES_BTN: 'lines__keyboard',
 };
 
 class Keyboard {
-  constructor(keys, language) {
+  constructor(keys) {
     if (!Array.isArray(keys)) {
       // eslint-disable-next-line new-cap
       throw TypeError('Keys not is array');
@@ -19,37 +18,27 @@ class Keyboard {
       this.keys = keys;
     }
     this.key = new Key();
-    this.flagLines = true;
-    this.lines;
-    this.language = language;
+    this.keyboardWrapper;
   }
 
-  createKeyboard() {
-    // eslint-disable-next-line max-len
-    const keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
-    const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
-    keyboardWrapper.append(keyboard);
-    if (this.language == 'en') {
-      this.keys.map((item, index) => {
-        const divKey = this.key.render(item);
-        keyboard.append(divKey);
-      });
-    } else if (this.language == 'ru') {
-      this.keys.map((item, index) => {
-        const divKey = this.key.render(item);
-        keyboard.append(divKey);
-        // if (index == 13 || index == 27 || index == 41 || index == 53) {
-        //   keyboard.innerHTML += '<div class="clear__both"></div>';
-        // }
-      });
+  createKeyboard(settingRender, newRender = false) {
+    if (!newRender) {
+      this.key.keyInDisplay = [];
     }
-    return keyboardWrapper;
+    // eslint-disable-next-line max-len
+    this.keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
+    const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
+    this.keyboardWrapper.append(keyboard);
+
+    this.keys.map((item, index) => {
+      const keyDiv = this.key.render(item.code, item[settingRender]);
+      keyboard.append(keyDiv);
+    });
+    return this.keyboardWrapper;
   }
 
-  createTextField() {
-    const textField = this.createElement('textarea', CSS_STYLES.TEXT_AREA);
-    textField.id = 'textarea';
-    return textField;
+  getKeyboard() {
+    return this.keyboardWrapper;
   }
 
   createElement(tagName, className) {
