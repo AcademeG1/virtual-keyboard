@@ -108,6 +108,16 @@ body {
     border-color: #AEB3BE;
     box-shadow: none;
     color: black;
+    transition: all 0.3s;
+}
+
+.no-hover:hover {
+    background: #5dc844;
+    border-color: #5dc844;
+    box-shadow: none;
+    color: #000000;
+    border-radius: 30px;
+    transition: all 0.3s;
 }
 
 .CapsLock {
