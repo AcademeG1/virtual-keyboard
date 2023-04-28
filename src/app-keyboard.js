@@ -15,7 +15,6 @@ const CSS_STYLES = {
   TEXT_AREA: 'text_area',
 };
 
-// let flagCapsLock = false;
 const pressed = new Set();
 let language;
 let languageShow;
@@ -214,6 +213,21 @@ keyboard.getKeyboard().onmousedown = (event) => {
     }
     if (event.target.classList[0] == 'ArrowRight') {
       textArea.getTextArea().value += '\u25B6';
+    }
+
+    if (event.target.classList[0] == 'Backspace') {
+      textArea.getTextArea().value =
+      textArea.getTextArea()
+          .value.slice(0, textArea.getTextArea().value.length-1);
+    }
+    if (event.target.classList[0] == 'Space') {
+      textArea.getTextArea().value += ' ';
+    }
+    if (event.target.classList[0] == 'Enter') {
+      textArea.getTextArea().value += '\n';
+    }
+    if (event.target.classList[0] == 'Tab') {
+      textArea.getTextArea().value += '\u0009';
     }
     if (event.target.classList[0] == 'ShiftLeft' ||
     event.target.classList[0] == 'ShiftRight') {
