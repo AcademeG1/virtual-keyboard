@@ -241,6 +241,31 @@ keyboard.getKeyboard().onmousedown = (event) => {
         document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('rusShift'));
       }
     }
+    if (event.target.classList[0] == 'CapsLock') {
+      if (capsLockPush == false) {
+        capsLockPush = true;
+        if (language == 'en') {
+          document.querySelector('.keyboard__wrapper').innerHTML = '';
+          // eslint-disable-next-line max-len
+          document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('capsLock'));
+        } else {
+          document.querySelector('.keyboard__wrapper').innerHTML = '';
+          // eslint-disable-next-line max-len
+          document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('capsLockRus'));
+        }
+      } else {
+        capsLockPush = false;
+        if (language == 'en') {
+          document.querySelector('.keyboard__wrapper').innerHTML = '';
+          // eslint-disable-next-line max-len
+          document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('default'));
+        } else {
+          document.querySelector('.keyboard__wrapper').innerHTML = '';
+          // eslint-disable-next-line max-len
+          document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('rus'));
+        }
+      }
+    }
   } else {
     textArea.getTextArea().value += event.target.textContent;
   }
@@ -260,7 +285,13 @@ keyboard.getKeyboard().onmouseup = (event) => {
       document.querySelector('.keyboard__wrapper').append(keyboard.createKeyboard('rus'));
     }
   }
-  activeKeyMouse(event.target, 'remove');
+  if (event.target.classList[0] !== 'CapsLock') {
+    activeKeyMouse(event.target, 'remove');
+  } else {
+    if (capsLockPush == false) {
+      activeKeyMouse(event.target, 'remove');
+    }
+  }
 };
 
 function activeKeyMouse(code, active) {
