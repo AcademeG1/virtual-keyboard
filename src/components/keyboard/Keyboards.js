@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import Key from '../key/Key.js';
 
 const CSS_STYLES = {
@@ -18,19 +19,19 @@ class Keyboard {
       this.keys = keys;
     }
     this.key = new Key();
-    this.keyboardWrapper;
+    this.keyboardWrapper = '';
+    this.element = document.body;
   }
 
   createKeyboard(settingRender, newRender = false) {
     if (!newRender) {
       this.key.keyInDisplay = [];
     }
-    // eslint-disable-next-line max-len
     this.keyboardWrapper = this.createElement('div', CSS_STYLES.KEYBOARD_WRAPPER);
     const keyboard = this.createElement('div', CSS_STYLES.KEYBOARD);
     this.keyboardWrapper.append(keyboard);
 
-    this.keys.map((item, index) => {
+    this.keys.forEach((item) => {
       const keyDiv = this.key.render(item.code, item[settingRender]);
       keyboard.append(keyDiv);
     });
@@ -42,9 +43,9 @@ class Keyboard {
   }
 
   createElement(tagName, className) {
-    const element = document.createElement(tagName);
-    element.className = className;
-    return element;
+    this.element = document.createElement(tagName);
+    this.element.className = className;
+    return this.element;
   }
 }
 

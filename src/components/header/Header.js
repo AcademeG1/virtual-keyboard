@@ -1,7 +1,6 @@
 class Header {
   constructor(headerTitle, headerClass) {
     if (typeof headerTitle !== 'string' || typeof headerClass !== 'string') {
-      // eslint-disable-next-line new-cap
       throw TypeError('Error header-title is not string');
     }
     this.headerTitle = headerTitle;
@@ -9,14 +8,14 @@ class Header {
   }
 
   renderHeader() {
-    const header = this.createElement('h1', this.headerClass);
+    const header = this.createElement('h1');
     header.textContent = this.headerTitle;
     return header;
   }
 
-  createElement(tagName, className) {
+  createElement(tagName) {
     const element = document.createElement(tagName);
-    element.className = className;
+    element.className = this.headerClass;
     return element;
   }
 }

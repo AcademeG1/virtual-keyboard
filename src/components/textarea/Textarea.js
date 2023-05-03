@@ -1,6 +1,7 @@
 class Textarea {
   constructor() {
-    this.textArea;
+    this.textArea = '';
+    this.element = document.body;
   }
 
   createTextField(cssStyle) {
@@ -15,9 +16,9 @@ class Textarea {
   }
 
   createElement(tagName, className) {
-    const element = document.createElement(tagName);
-    element.className = className;
-    return element;
+    this.element = document.createElement(tagName);
+    this.element.className = className;
+    return this.element;
   }
 }
 
